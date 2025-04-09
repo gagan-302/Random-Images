@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="all.css">
+    <title>Dogs Images</title>
+</head>
+<body style="background-color: rgb(239, 242, 191);">
+    <h1>Some Random Pictures of Dogs</h1>
+    <div class="imgdiv">
+        <img src="https://images.dog.ceo/breeds/eskimo/n02109961_546.jpg" alt="loading"> 
+    </div>
+    <button style="background-color: rgb(134, 145, 7); color: aliceblue;">CLick for change</button>
+
+
+ <script >
+    let url = "https://dog.ceo/api/breeds/image/random"; // Correct API endpoint for random dog images
+let img = document.querySelector("img");
+let btn = document.querySelector("button");
+
+btn.addEventListener("click", async () => {
+    let newimg = await getimage();
+    img.setAttribute("src", newimg);
+})
+
+async function getimage() {
+    try {
+        let res = await fetch(url); // Fetching from the actual url variable
+        let data = await res.json();
+        return data.message; // This is the URL of the dog image
+    } catch (e) {
+        console.log("Error occurred:", e);
+        return ''; // Return empty string in case of error
+    }
+}
+ </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="all.css">
+    <title>Cats Images</title>
+</head>
+<body style="background-color: rgb(217, 191, 242);">
+    <h1>Some Random Pictures of Cats</h1>
+    <div class="imgdiv">
+        <img src="https://cdn2.thecatapi.com/images/0VVrCBf1l.jpg" alt="loading"> 
+    </div>
+    <button style="background-color: rgb(130, 67, 188); color: aliceblue;">CLick for change</button>
+
+    
+    <script>
+        const url = "https://api.thecatapi.com/v1/images/search?api_key=YOUR_API_KEY"; // Correct API endpoint with your API key
+        let img = document.querySelector("img");
+        let btn = document.querySelector("button");
+
+        btn.addEventListener("click", async () => {
+            let newimg = await getimage();
+            img.setAttribute("src", newimg);
+        });
+
+        async function getimage() {
+            try {
+                let res = await fetch(url); // Fetching from the Cat API
+                let data = await res.json();
+                return data[0].url; // Corrected to access the 'url' from the first object in the response array
+            } catch (e) {
+                console.log("Error occurred:", e);
+                return ''; // Return empty string in case of error
+            }
+        }
+    </script>
+</body>
+</html>

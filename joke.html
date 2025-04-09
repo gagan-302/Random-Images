@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="all.css">
+    <title>Jokes</title>
+</head>
+<body style="background-color: rgb(198, 244, 202);">
+    <h1>Some Random Jokes</h1>
+    <div class="imgdiv">
+      <p id="joke-text" style="background-color: rgb(178, 247, 184); border: 2px solid black;">"The other day my wife asked me to pass her lipstick, but I accidentally gave her a glue stick. She still isn't talking to me."</p>
+    </div>
+    <button style="background-color: rgb(46, 169, 48); color: aliceblue;" id="change-button">Click for change</button>
+    <script>
+        let url = "https://v2.jokeapi.dev/joke/Any?safe-mode";
+        let p = document.querySelector("#joke-text"); // Corrected to target the paragraph with the joke
+        let btn = document.querySelector("#change-button");
+    
+        btn.addEventListener("click", async () => {
+            let newjoke = await getjoke();
+            p.innerText = newjoke; // Set the new joke text
+        });
+    
+        async function getjoke() {
+            try {
+                let res = await fetch(url);
+                let data = await res.json();
+                
+                // Check if the joke is a single-line or two-part joke
+                if (data.type === "single") {
+                    return data.joke; // For single-line jokes
+                } else if (data.type === "twopart") {
+                    return `${data.setup} - ${data.delivery}`; // For two-part jokes
+                }
+            } catch (e) {
+                console.log("Error occurred:", e);
+                return 'Oops! Something went wrong.'; // Fallback message if error occurs
+            }
+        }
+    </script>
+</body>
+</html>

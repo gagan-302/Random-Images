@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="all.css">
+    <title>Random Images</title>
+</head>
+<body style="background-color: rgb(180, 244, 224);">
+    <h1>Some Random Pictures</h1>
+    <div class="imgdiv">
+       <img src="https://picsum.photos/200/300" alt="random image" id="random-img">
+    </div>
+    <button style="background-color: rgb(60, 209, 162); color: aliceblue;" id="change-button">Click for change</button>
+    <script>
+        let img = document.querySelector("img");
+        let btn = document.querySelector("button");
+    
+        btn.addEventListener("click", () => {
+            img.src = "https://picsum.photos/200/300?random=" + new Date().getTime(); // To get a new random image each time
+        });
+    </script>
+</body>
+</html>
+

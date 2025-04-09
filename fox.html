@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="all.css">
+    <title>Fox Images</title>
+</head>
+<body style="background-color: rgb(236, 213, 144);">
+    <h1>Some Random Pictures of Fox</h1>
+    <div class="imgdiv">
+       <img src="https://randomfox.ca/images/48.jpg" alt="fox images">
+    </div>
+    <button style="background-color: rgb(176, 126, 17); color: aliceblue;" id="change-button">Click for change</button>
+    <script>
+        let url = "https://randomfox.ca/floof/";
+        let img = document.querySelector("img");
+        let btn = document.querySelector("button");
+    
+        btn.addEventListener("click", async () => {
+            let newimg = await getImage();
+            img.setAttribute("src",newimg); // Update the image source
+        });
+    
+        async function getImage() {
+            try {
+                let res = await fetch(url); // Fetch from the API
+                let data = await res.json(); // Parse the JSON response
+                return data.image; // Return the URL of the fox image
+            } catch (e) {
+                console.log("Error occurred:", e);
+                return ''; // Return empty string if an error occurs
+            }
+        }
+    </script>
+</body>
+</html>
+
